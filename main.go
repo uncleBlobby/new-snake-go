@@ -13,6 +13,7 @@ package main
 // For more info see docs.battlesnake.com
 
 import (
+	"fmt"
 	"log"
 )
 
@@ -46,6 +47,7 @@ func end(state GameState) {
 // See https://docs.battlesnake.com/api/example-move for available data
 func move(state GameState) BattlesnakeMoveResponse {
 
+	fmt.Printf("State: %v", state)
 	scoredMoves := ScoredMoves{}
 
 	scoredMoves = AvoidNeck(state, scoredMoves)
@@ -70,8 +72,9 @@ func move(state GameState) BattlesnakeMoveResponse {
 	// TODO: Step 4 - Move towards food instead of random, to regain health and survive longer
 	// food := state.Board.Food
 
-	log.Printf("MOVE %d: %s\n", state.Turn, nextMove)
 	LogScoredMoves(scoredMoves)
+	log.Printf("MOVE %d: %s\n", state.Turn, nextMove)
+
 	return BattlesnakeMoveResponse{Move: nextMove}
 }
 

@@ -84,7 +84,7 @@ func AvoidSnakes(gs GameState, sm ScoredMoves) ScoredMoves {
 
 			// if snake has just eaten, avoid their tail
 			if snake.Body[len(snake.Body)-1] == snake.Body[len(snake.Body)-2] {
-				log.Printf("%v has just eaten, avoiding tail. ", snake.Name)
+				//log.Printf("%v has just eaten, avoiding tail. ", snake.Name)
 				if myHead.X+1 == bodyPart.X && myHead.Y == bodyPart.Y {
 					log.Printf("Avoiding snake (RIGHT): %v", bodyPart)
 					sm.Right.Score = -1000

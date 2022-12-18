@@ -41,6 +41,9 @@ func HandleMove(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response := move(state)
+	db := OpenDB()
+	WriteTurnToDB(db, state, response.Move)
+	db.Close()
 
 	w.Header().Set("Content-Type", "application/json")
 	err = json.NewEncoder(w).Encode(response)
@@ -77,6 +80,12 @@ func withServerID(next http.HandlerFunc) http.HandlerFunc {
 // Start Battlesnake Server
 
 func RunServer() {
+	log.Printf("Starting Battlesnake Server...")
+
+	db := OpenDB()
+
+	CreateGamesTable(db)
+	db.Close()
 	port := os.Getenv("PORT")
 	if len(port) == 0 {
 		port = "8888"

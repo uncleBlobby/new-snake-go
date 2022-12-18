@@ -76,3 +76,24 @@ type BattlesnakeMoveResponse struct {
 	Move  string `json:"move"`
 	Shout string `json:"shout"`
 }
+
+type ScoredMove struct {
+	Direction string
+	Score     int
+}
+
+type ScoredMoves struct {
+	Left  ScoredMove
+	Up    ScoredMove
+	Right ScoredMove
+	Down  ScoredMove
+}
+
+type Path struct {
+	Coords []Coord
+}
+
+type FloodCoord struct {
+	Coord Coord
+	Searched bool
+}

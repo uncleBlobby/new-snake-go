@@ -13,7 +13,6 @@ package main
 // For more info see docs.battlesnake.com
 
 import (
-	"fmt"
 	"log"
 )
 
@@ -47,7 +46,7 @@ func end(state GameState) {
 // See https://docs.battlesnake.com/api/example-move for available data
 func move(state GameState) BattlesnakeMoveResponse {
 
-	fmt.Printf("State: %v", state)
+	//fmt.Printf("State: %v", state)
 	scoredMoves := ScoredMoves{}
 
 	scoredMoves = AvoidNeck(state, scoredMoves)
@@ -55,6 +54,7 @@ func move(state GameState) BattlesnakeMoveResponse {
 	scoredMoves = AvoidSelf(state, scoredMoves)
 
 	pathToCloseFood := FindPathBetweenCoords(state.You.Body[0], FindClosestFood(state))
+
 	log.Printf("Path to closest food: %v", pathToCloseFood)
 
 	scoredMoves = PreferPathTowardCloseFood(pathToCloseFood, state, scoredMoves)
@@ -63,9 +63,12 @@ func move(state GameState) BattlesnakeMoveResponse {
 
 	scoredMoves = AvoidSnakes(state, scoredMoves)
 
-	scoredMoves = CountFreeSpacesEachDirection(state, scoredMoves)
+	//scoredMoves = CountFreeSpacesEachDirection(state, scoredMoves)
 
 	scoredMoves = AvoidMovingInFrontOfLargerSnakes(state, scoredMoves)
+
+	scoredMoves = CountOpenNodes(state, scoredMoves)
+
 	// Choose the highest scored move to make
 	nextMove := GetBestScoredMove(scoredMoves)
 

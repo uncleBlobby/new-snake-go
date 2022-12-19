@@ -48,11 +48,31 @@ func FindPathBetweenCoords(c1 Coord, c2 Coord) Path {
 	return path
 }
 
+// Did not yet have the brain power to implement this.
+
+func FindPathBetweenCoordsGoAroundSnakes(start Coord, end Coord, gs GameState) Path {
+	var path Path
+
+	return path
+}
+
 func CheckIfCoordIsSnake(coord Coord, gs GameState) bool {
-	for _, snake := range gs.Board.Snakes {
-		for _, snakeCoord := range snake.Body {
-			if snakeCoord == coord {
-				return true
+
+	for i := 0; i < len(gs.Board.Snakes); i++ {
+		// if the snake has NOT just eaten, it's tail is a safe spot to move
+		if gs.Board.Snakes[i].Body[len(gs.Board.Snakes[i].Body)-1] != gs.Board.Snakes[i].Body[len(gs.Board.Snakes[i].Body)-2] {
+			for j := 0; j < len(gs.Board.Snakes[i].Body)-1; j++ {
+				if gs.Board.Snakes[i].Body[j] == coord {
+					return true
+				}
+			}
+		}
+		// if the snake HAS just eaten, it's tail is NOT a safe spot to move
+		if gs.Board.Snakes[i].Body[len(gs.Board.Snakes[i].Body)-1] == gs.Board.Snakes[i].Body[len(gs.Board.Snakes[i].Body)-2] {
+			for j := 0; j < len(gs.Board.Snakes[i].Body); j++ {
+				if gs.Board.Snakes[i].Body[j] == coord {
+					return true
+				}
 			}
 		}
 	}

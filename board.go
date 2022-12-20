@@ -152,6 +152,20 @@ func GetNeighbourCoords(coord Coord) []Coord {
 	}
 }
 
+func GetNeighbourCoordsNOTWRAPPED(coord Coord, gs GameState) []Coord {
+	neighbours := GetNeighbourCoords(coord)
+
+	var validNeighbours []Coord
+
+	for _, neighbour := range neighbours {
+		if neighbour.X >= 0 && neighbour.X < gs.Board.Width && neighbour.Y >= 0 && neighbour.Y < gs.Board.Height {
+			validNeighbours = append(validNeighbours, neighbour)
+		}
+	}
+
+	return validNeighbours
+}
+
 func CountNeighboursThatDontHaveSnake(gs GameState, nb []Coord) int {
 	var count int
 

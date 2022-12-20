@@ -94,6 +94,11 @@ type Path struct {
 }
 
 type FloodCoord struct {
-	Coord Coord
+	Coord    Coord
 	Searched bool
+}
+
+type SearchNode struct {
+	Coord  Coord
+	Parent *SearchNode
 }

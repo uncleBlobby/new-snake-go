@@ -69,6 +69,12 @@ func move(state GameState) BattlesnakeMoveResponse {
 
 	scoredMoves = CountOpenNodes(state, scoredMoves)
 
+	// Path to closest food using new BFS
+
+	BFSFoodPath := BreadthFirstSearch(state.You.Head, FindClosestFood(state), state)
+
+	log.Printf("BFS Path to closest food: %v", BFSFoodPath)
+
 	// Choose the highest scored move to make
 	nextMove := GetBestScoredMove(scoredMoves)
 
